@@ -56,11 +56,11 @@ public class InputReader : MonoBehaviour
     public bool LeftGrip;
     public bool LeftGripDown;
     public bool LeftGripUp;
-    //right joystick button on controller, 'o' on the keyboard
+    //right joystick button on controller, 'i' on the keyboard
     public bool RightJoystickButton;
     public bool RightJoystickButtonDown;
     public bool RightJoystickButtonUp;
-    //left joystick button on controller, 'w' on the keyboard
+    //left joystick button on controller, 'e' on the keyboard
     public bool LeftJoystickButton;
     public bool LeftJoystickButtonDown;
     public bool LeftJoystickButtonUp;
@@ -245,10 +245,9 @@ public class InputReader : MonoBehaviour
             rightController.TryGetFeatureValue(CommonUsages.grip, out RightGripValue);
 
             //Right pointer finger trigger
-            rightController.TryGetFeatureValue(CommonUsages.trigger, out RightMainTriggerValue);
-            if (RightMainTriggerValue>.2)
+            rightController.TryGetFeatureValue(CommonUsages.triggerButton, out RightMainTrigger);
+            if (RightMainTrigger)
             {
-                RightMainTrigger=true;
                 if (!RightMainTriggerOn)
                 {
                     RightMainTriggerDown=true;
@@ -266,7 +265,6 @@ public class InputReader : MonoBehaviour
             }
             else
             {
-                RightMainTrigger=false;
                 RightMainTriggerUp=false;
             }
         }
@@ -288,9 +286,9 @@ public class InputReader : MonoBehaviour
             RightGripUp=Input.GetKeyUp(KeyCode.P);
 
             //the right joystick button with keyboard
-            RightJoystickButton=Input.GetKey(KeyCode.O);
-            RightJoystickButtonDown=Input.GetKeyDown(KeyCode.O);
-            RightJoystickButtonUp=Input.GetKeyUp(KeyCode.O);
+            RightJoystickButton=Input.GetKey(KeyCode.I);
+            RightJoystickButtonDown=Input.GetKeyDown(KeyCode.I);
+            RightJoystickButtonUp=Input.GetKeyUp(KeyCode.I);
 
             //right Joystick with keyboard
             float HorizontalInput = Input.GetAxis("Horizontal");
@@ -363,9 +361,8 @@ public class InputReader : MonoBehaviour
 
             //left pointer finger trigger
             leftController.TryGetFeatureValue(CommonUsages.trigger, out LeftMainTriggerValue);
-            if (LeftMainTriggerValue>.2)
+            if (LeftMainTrigger)
             {
-                LeftMainTrigger=true;
                 if (!LeftMainTriggerOn)
                 {
                     LeftMainTriggerDown=true;
@@ -383,7 +380,6 @@ public class InputReader : MonoBehaviour
             }
             else
             {
-                LeftMainTrigger=false;
                 LeftMainTriggerUp=false;
             }
 
@@ -485,9 +481,9 @@ public class InputReader : MonoBehaviour
             LeftGripUp=Input.GetKeyUp(KeyCode.Q);
 
             //the left joystick button with keyboard
-            LeftJoystickButton=Input.GetKey(KeyCode.W);
-            LeftJoystickButtonDown=Input.GetKeyDown(KeyCode.W);
-            LeftJoystickButtonUp=Input.GetKeyUp(KeyCode.W);
+            LeftJoystickButton=Input.GetKey(KeyCode.E);
+            LeftJoystickButtonDown=Input.GetKeyDown(KeyCode.E);
+            LeftJoystickButtonUp=Input.GetKeyUp(KeyCode.E);
 
             //left grip button (value) on keyboard
             if (Input.GetKey(KeyCode.Q))

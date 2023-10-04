@@ -32,17 +32,6 @@ public class CameraController : MonoBehaviour
         movement=Inputs.rightJoystick[1];
         this.transform.Translate(RightHand.forward*MovingSpeed*movement*Time.deltaTime, Space.World);
 
-        //If the player presses right joystick, they drop back to the ground and view is levelled
-        if (Inputs.RightJoystickButtonDown)
-        {
-            Vector3 newPosition = this.transform.position;
-            newPosition.y=0f;
-            this.transform.position=newPosition;
-            Vector3 newAngles = this.transform.eulerAngles;
-            newAngles.x = 0f;
-            this.transform.eulerAngles=newAngles;
-        }
-
         //Need Keyboard method of tilting up and down for debugging purposes, M tilts down, N tilts up
         if (Input.GetKey(KeyCode.M))
         {

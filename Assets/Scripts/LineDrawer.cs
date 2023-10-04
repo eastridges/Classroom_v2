@@ -10,10 +10,14 @@ public class LineDrawer : MonoBehaviour
     public GameObject Line;
     public Transform Pointer;
     public Transform Drawings;
+    public Transform rh;
+    public Transform lh;
+    public Transform Middle;
 
     private LineRenderer drawLine;
     private List<Vector3> linePoints;
     public float lineWidth = 0.02f;
+    private float originalDistance;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +28,7 @@ public class LineDrawer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
 
         //Draw some lines
         if (inputs.RightMainTriggerDown)
@@ -37,6 +42,11 @@ public class LineDrawer : MonoBehaviour
             linePoints.Add(Pointer.position);
             drawLine.positionCount = linePoints.Count;
             drawLine.SetPositions(linePoints.ToArray());
+        }
+        else if (inputs.RightMainTriggerUp)
+        {
+            drawLine.useWorldSpace=false;
+            Drawings.GetChild(Drawings.childCount-1).transform.position = new Vector3(0,0,0);
         }
 
         if (lineWidth<1 && inputs.leftJoystick[1]>0)
@@ -53,12 +63,36 @@ public class LineDrawer : MonoBehaviour
         if (inputs.ButtonBDown && Drawings.childCount>0)
         {
             Destroy(Drawings.GetChild(Drawings.childCount-1).gameObject);
-        }     
+        }
+
+        //rescale drawings
+        //first frame both grips are held
+        if ((inputs.LeftGripDown && inputs.RightGrip) || (inputs.LeftGrip && inputs.RightGripDown))
+        {
+            Drawings.SetParent(Middle);
+            originalDistance = (rh.position - lh.position).magnitude;
+            
+        }
+        //While both grips are being held
+        if (inputs.LeftGrip && inputs.RightGrip)
+        {
+            //scaling
+            if (originalDistance > 0)
+            {
+                float scaleChange = (((rh.position - lh.position).magnitude)/originalDistance);
+                Middle.localScale = Middle.localScale * scaleChange;
+                originalDistance = (rh.position - lh.position).magnitude;
+            }
+        }
+        else if (inputs.LeftGripUp || inputs.RightGripUp)
+        {
+            Drawings.SetParent(null);
+        }
     }
 
     private void makeNewLine()
     {
-        GameObject NewLine = Instantiate(Line, Pointer.position, Quaternion.identity);
+        GameObject NewLine = Instantiate(Line, Pointer.position-Drawings.position, Quaternion.identity);
         NewLine.transform.SetParent(Drawings);
         drawLine = NewLine.GetComponent<LineRenderer>();
     }

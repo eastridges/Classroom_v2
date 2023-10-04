@@ -9,6 +9,7 @@ public class GameController : MonoBehaviour
 {
     //So you can get user inputs
     public InputReader inputs;
+    public Transform drawings;
 
     public Transform rh;
     public Transform lh;
@@ -24,14 +25,7 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (inputs.ButtonADown)
-        {
-            Debug.Log("hey");
-        }
-        if (inputs.ButtonYDown)
-        {
-            Debug.Log("Whatup");
-        }
+        
         //reload the scene if the user presses x
         if(inputs.ButtonXDown)
         {
