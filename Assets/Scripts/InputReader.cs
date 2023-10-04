@@ -360,7 +360,7 @@ public class InputReader : MonoBehaviour
             }
 
             //left pointer finger trigger
-            leftController.TryGetFeatureValue(CommonUsages.trigger, out LeftMainTriggerValue);
+            leftController.TryGetFeatureValue(CommonUsages.triggerButton, out LeftMainTrigger);
             if (LeftMainTrigger)
             {
                 if (!LeftMainTriggerOn)

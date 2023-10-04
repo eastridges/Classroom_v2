@@ -13,9 +13,11 @@ public class LineDrawer : MonoBehaviour
     public Transform rh;
     public Transform lh;
     public Transform Middle;
+    public GameObject Axis;
 
     private LineRenderer drawLine;
     private List<Vector3> linePoints;
+    private GameObject currentAxis;
     public float lineWidth = 0.02f;
     private float originalDistance;
 
@@ -28,6 +30,18 @@ public class LineDrawer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Draw the axis
+        if (inputs.LeftMainTriggerDown)
+        {
+            GameObject newAxis = Instantiate(Axis, lh.position, Quaternion.identity);
+            newAxis.GetComponent<AxisControl>().setVariables();
+            newAxis.transform.SetParent(lh);
+            currentAxis=newAxis;
+        }
+        if (inputs.LeftMainTriggerUp)
+        {
+            currentAxis.transform.SetParent(Drawings);
+        }
         
 
         //Draw some lines

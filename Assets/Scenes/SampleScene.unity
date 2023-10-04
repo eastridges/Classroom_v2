@@ -642,6 +642,7 @@ MonoBehaviour:
   rh: {fileID: 1750667491}
   lh: {fileID: 1246703028}
   Middle: {fileID: 2118592016}
+  Axis: {fileID: 5558804614661842321, guid: 6d786471b6c7cea42a092164e5b88d54, type: 3}
   lineWidth: 0.02
 --- !u!1001 &819148134
 PrefabInstance:
